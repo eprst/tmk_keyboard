@@ -137,4 +137,9 @@ micro: all
 cub: OPT_DEFS += -DKEYMAP_CUB
 cub: all
 
+kos: OPT_DEFS += -DKEYMAP_KOS
+kos: all
+
+teensy2: $(TARGET).hex
+	./teensy-loader-cli -mmcu=$(MCU) -w -v $(TARGET).hex
 

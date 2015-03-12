@@ -1,0 +1,6 @@
+to build teensy loader:
+
+git clone https://gitorious.org/kiibohd-controller/capsense-beta.git
+cd LoadFile
+cmake .
+make

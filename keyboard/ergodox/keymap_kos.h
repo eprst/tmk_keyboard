@@ -3,50 +3,160 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Keymap: Default Layer in QWERTY
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |   ~    |   1  |   2  |   3  |   4  |   5  |   \  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
+     * |   ~    |   1  |   2  |   3  |   4  |   5  |   -  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |   -    |
+     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           |      |   Y  |   U  |   I  |   O  |   P  |   \    |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * | Caps   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
-     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
+     * | LShift |   A  |  S/3 |  D/1 |  F/2 |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;/1 |   '    |
+     * |--------+------+------+------+------+------| L2   |           | Caps |------+------+------+------+------+--------|
+     * |Shft+Cps|   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| LGui | LAlt | Esc  | Enter|                                       | Space|  Bksp|   [  |   ]  | RCtrl|
-     *   `----------------------------------'                                       `----------------------------------'
+     *   | LCtrl| Esc  | LAlt | LGui | Ins  |                                       | Bksp | RGui | Del  |      | RCtrl  |
+     *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |      | Home |       |      |      |
+     *                                        |Home  | End  |       | Esc  | App  |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |  End |       | PgUp |      |      |
-     *                                 | Ins  |      |------|       |------| RAlt | App  |
+     *                                 |      |      |Pause |       | PgUp |      |      |
+     *                                 | Enter| LCtrl|------|       |------| RAlt | Space|
      *                                 |      |      |      |       | PgDn |      |      |
      *                                 `--------------------'       `--------------------'
      *
      * For left led changes: see matrix.c:121
-     *
-     * ToDo:
-     * PrtSc: become SysRq/PrtSc on tap
      */
 
     KEYMAP(  // Layer0: default, leftled:none
         // left hand
-        GRV, 1,   2,   3,   4,   5,   BSLS,
-        TAB, Q,   W,   E,   R,   T,   NO,
-        CAPS,A,   S,   D,   F,   G,
-        LSFT,Z,   X,   C,   V,   B,   NO,
-        LCTL,LGUI,LALT,ESC, ENT,
-                                      NO  ,HOME,
-                                           END,
-                                 INS, NO , NO,
+        GRV, 1,   2,   3,   4,   5,   MINS,
+        TAB, Q,   W,   E,   R,   T,   FN1,
+        FN9, A,   FN24,FN25,FN26,G,
+        FN5, Z,   X,   C,   V,   B,   FN2,
+        LCTL,ESC, LALT,LGUI,INS,                 // todo: swap LGUI and ESC back
+                                      HOME,END,
+                                           PAUS,
+                                 ENT, LCTL,NO,   // todo: LGUI -> ESC
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
-             NO  ,Y,   U,   I,   O,   P,   MINS,
-                  H,   J,   K,   L,   SCLN,QUOT,
-             NO , N,   M,   COMM,DOT, SLSH,RCTL,
-                       SPC ,BSPC,LBRC,RBRC,RGUI,
-        NO,  NO,
+             NO,  Y,   U,   I,   O,   P,   BSLS,
+                  H,   J,   K,   L,   FN27,QUOT,
+             CAPS,N,   M,   COMM,DOT, SLSH,FN10,
+                       BSPC,RGUI,DEL, NO,  RCTL,
+        ESC, APP,                                // todo: remove LGUI
         PGUP,
-        PGDN,RALT,APP
+        PGDN,RALT,SPC
+    ),
+
+    KEYMAP(  // Layer1: F-keys instead of numbers, leftled:red
+        // left hand
+        TRNS,F1,  F2,  F3,  F4,  F5,  TRNS,
+        TRNS,P1,  P2,  P3,  P4,  P5,  TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,
+                                      TRNS,TRNS,
+                                           TRNS,
+                                 TRNS,TRNS,TRNS,
+        // right hand
+             TRNS,F6,  F7,  F8,  F9,  F10, F11,
+             FN6, TRNS,LBRC,RBRC,TRNS,TRNS,F12,
+                  LEFT,DOWN,UP, RIGHT,FN27,TRNS,
+             TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+                       DEL, TRNS,TRNS,TRNS,TRNS,
+        FN0, TRNS,
+        TRNS,
+        TRNS,TRNS,TRNS
+    ),
+
+    KEYMAP(  // Layer2: mouse and navigation, leftled:yellow
+        // left hand
+        TRNS,NO,  NO,  NO,  NO,  NO,  NO,
+        TRNS,ACL0,TRNS,TRNS,TRNS,ACL0,TRNS,
+        TRNS,ACL1,TRNS,TRNS,TRNS,ACL1,
+        TRNS,ACL2,TRNS,TRNS,TRNS,ACL2,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,
+                                      TRNS,TRNS,
+                                           TRNS,
+                                 TRNS,TRNS,TRNS,
+
+        // right hand
+           SYSREQ,MPLY,MPRV,MNXT,VOLD,VOLU,MUTE,
+             TRNS,WH_L,WH_D,WH_U,WH_R,PGUP,ACL0,
+                  MS_L,MS_D,MS_U,MS_R,PGDN,ACL1,
+             TRNS,HOME,END, DEL, INS, NO,  ACL2,
+                       BTN2,BTN3,TRNS,TRNS,TRNS,
+        WBAK,WFWD,
+        TRNS,
+        TRNS,TRNS,BTN1
+    ),
+
+    /*
+     * Keymap:
+     *
+     * ,--------------------------------------------------.           ,--------------------------------------------------.
+     * |        |      |      |      |ALT+F4|      |      |           |      | SH+F6|ALT+F7|      |  -   |  +   | SH+F11 |
+     * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |      |           |      |      |  {   |   }  |  [   |   ]  |        |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |------|           |------|$this>|  (   |   )  |  _   |  =   |        |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |      |           |      |      |  ->  |FORMAT| !=   |  =>  |        |
+     * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+     *   |      |      |      |      |      |                                       |   @  |      |      |      |        |
+     *   `----------------------------------'                                       `------------------------------------'
+     *                                        ,-------------.       ,-------------.
+     *                                        |      |      |       |VolDn |VolUp |
+     *                                 ,------|------|------|       |------+------+------.
+     *                                 |      |      |      |       |Mute  |      |      |
+     *                                 |  :   |      |------|       |------|      |  $   |
+     *                                 |      |      |      |       |      |      |      |
+     *                                 `--------------------'       `--------------------'
+     *
+     */
+    KEYMAP(  // Layer 3: programming stuff on the right hand
+        // left hand
+        TRNS,TRNS,TRNS,TRNS,FN17,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,
+                                      TRNS,TRNS,
+                                           TRNS,
+                                 FN18,TRNS,TRNS,
+        // right hand
+             TRNS,FN11,FN12,TRNS,MINS,FN15,FN13,
+             TRNS,TRNS,FN1 ,FN2 ,LBRC,RBRC,TRNS,
+                  FN3, FN4, FN5, FN6, EQL, TRNS,
+             TRNS,TRNS,FN7, FN10,FN14,FN16,TRNS,
+                       FN8, TRNS,TRNS,TRNS,TRNS,
+        VOLD,VOLU,
+        MUTE,
+        TRNS,TRNS,FN9
     )
+
+
+    /*
+     * Keymap:
+     *
+     * ,--------------------------------------------------.           ,--------------------------------------------------.
+     * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+     * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+     * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+     *   |      |      |      |      |      |                                       |      |      |      |      |        |
+     *   `----------------------------------'                                       `------------------------------------'
+     *                                        ,-------------.       ,-------------.
+     *                                        |      |      |       |      |      |
+     *                                 ,------|------|------|       |------+------+------.
+     *                                 |      |      |      |       |      |      |      |
+     *                                 |      |      |------|       |------|      |      |
+     *                                 |      |      |      |       |      |      |      |
+     *                                 `--------------------'       `--------------------'
+     *
+     */
+
 /*
     // templates to copy from
 
@@ -102,59 +212,61 @@ enum function_id {
     R_CTRL_ALT_ENT,
 };
 
-//enum macro_id {
-//    PASSWORD1,
-//    PASSWORD2,
-//};
+enum macro_id {
+    THIS_ARR,
+    ARR,
+    FORMAT_METHOD,
+    NOT_EQ,
+    ARR2,
+    PWD1
+};
+
+#include "pass.h"
+#define MACRO_THIS_ARR      MACRO( I(15), D(LSHIFT), T(4), U(LSHIFT), T(T), T(H), T(I), T(S), T(MINS), D(LSHIFT), T(DOT), U(LSHIFT), END )
+#define MACRO_ARR           MACRO( I(15), T(MINS), D(LSHIFT), T(DOT), U(LSHIFT), END )
+#define MACRO_FORMAT_METHOD MACRO( I(15), T(M), T(L), D(LALT), T(UP), U(LALT), W(100), D(LCTRL), D(LSHIFT), T(W), T(W), U(LSHIFT), D(LALT), T(L), U(LALT), U(LCTRL), W(100), T(GRAVE), T(L), W(100), END )
+#define MACRO_NOT_EQ        MACRO( I(15), D(LSHIFT), T(1), U(LSHIFT), T(EQL), END )
+#define MACRO_ARR2          MACRO( I(15), T(EQL), D(LSHIFT), T(DOT), U(LSHIFT), END )
 
 /*
  * Fn action definition
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    [0] =   ACTION_FUNCTION(TEENSY_KEY),                    // FN0  - Teensy key
+    [0]  =   ACTION_FUNCTION(TEENSY_KEY),                    // FN0  - Teensy key
+    [1]  =   ACTION_LAYER_TOGGLE(1),
+    [2]  =   ACTION_LAYER_TOGGLE(2),
 
-    [1] =   ACTION_MODS_KEY(MOD_LSFT, KC_BSLS),             // FN1  = Shifted BackSlash // " in Workman
-    [2] =   ACTION_MODS_KEY(MOD_LSFT, KC_MINS),             // FN2  = Shifted Minus     // \ in Workman
-    [3] =   ACTION_MODS_KEY(MOD_LSFT, KC_COMM),             // FN3  = Shifted comma     // < in Workman
-    [4] =   ACTION_MODS_KEY(MOD_LSFT, KC_DOT),              // FN4  = Shifted dot       // > in Workman
+    [5] =    ACTION_MODS_KEY(MOD_LSFT, KC_CAPS),
+    [6] =    ACTION_MACRO(PWD1),
 
-    [5] =   ACTION_MODS_TAP_KEY(MOD_LCTL, KC_BSPC),         // FN5  = LShift with tap BackSpace
-    [6] =   ACTION_MODS_TAP_KEY(MOD_LSFT, KC_DEL),          // FN6  = LCtrl  with tap Delete
-    [7] =   ACTION_MODS_TAP_KEY(MOD_LALT, KC_ESC),          // FN7  = LAlt   with tap Escape
-    [8] =   ACTION_MODS_TAP_KEY(MOD_RGUI, KC_INS),          // FN8  = RGui   with tap Ins
-    [9] =   ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),          // FN9  = RShift with tap Enter
-    [10] =  ACTION_MODS_TAP_KEY(MOD_RCTL, KC_SPC),          // FN10 = RCtrl  with tap Space
+    [9]  =   ACTION_MODS_ONESHOT(MOD_LSFT),
+    [10] =   ACTION_MODS_ONESHOT(MOD_RSFT),
 
-    [11] =  ACTION_MODS_TAP_KEY(MOD_LSFT, KC_TAB),          // FN11 = LShift with tap Tab
-    [12] =  ACTION_MODS_TAP_KEY(MOD_LCTL, KC_GRV),          // FN12 = LCtrl  with tap Tilda
-    [13] =  ACTION_MODS_TAP_KEY(MOD_LALT, KC_SPC),          // FN13 = LAlt   with tap Space
-    [14] =  ACTION_MODS_TAP_KEY(MOD_LGUI, KC_ESC),          // FN14 = LGui   with tap Escape
-    [15] =  ACTION_MODS_TAP_KEY(MOD_RSFT, KC_QUOT),         // FN15 = RShift with tap quotes
-    [16] =  ACTION_MODS_TAP_KEY(MOD_RCTL, KC_RBRC),         // FN16 = RCtrl  with tap ]
+    [24] =   ACTION_LAYER_TAP_KEY(3, KC_S),
+    [25] =   ACTION_LAYER_TAP_KEY(1, KC_D),
+    [26] =   ACTION_LAYER_TAP_KEY(2, KC_F),
+    [27] =   ACTION_LAYER_TAP_KEY(1, KC_SCLN)
+};
 
-    [17] =  ACTION_LAYER_SET(0, ON_BOTH),                   // FN17 - set Layer0
-    [18] =  ACTION_LAYER_SET(1, ON_BOTH),                   // FN18 - set Layer1, to use Workman layout at firmware level
-    [19] =  ACTION_LAYER_SET(2, ON_BOTH),                   // FN19 - set Layer2, to use with Numpad keys
-
-    [21] =  ACTION_FUNCTION_TAP(L_CTRL_ALT_ENT),            // FN21 - momentary Layer5+CTRL+ALT on Enter, to use with F* keys on top row
-    [22] =  ACTION_FUNCTION_TAP(R_CTRL_ALT_ENT),            // FN22 - momentary Layer6+CTRL+ALT on Enter, to use with F* keys on top row + utils
-
-    [28] =  ACTION_LAYER_TAP_KEY(4, KC_A),                  // FN28 = momentary Layer4 on A key, to use with unconvenient keys
-    [29] =  ACTION_LAYER_TAP_KEY(3, KC_S),                  // FN29 = momentary Layer3 on S key, to use with F* keys
-    [30] =  ACTION_LAYER_TAP_KEY(8, KC_D),                  // FN30 = momentary Layer8 on D key, to use with mouse and navigation keys
-    [31] =  ACTION_LAYER_TAP_KEY(2, KC_F),                  // FN31 = momentary Layer2 on F key, to use with Numpad keys
-
-    // i'd like to remove this - will try to get used to live without this and convert them to usual keys
-    [20] =  ACTION_LAYER_MOMENTARY(2),                      // FN20 - momentary Layer2, to use with Numpad keys
-// or
-//  [20] =  ACTION_FUNCTION_TAP(CUSTOM_KEY),                // FN20 - use custom key, with tapping support
-
-    [23] =  ACTION_LAYER_TAP_KEY(7, KC_BSLS),               // FN23 - momentary Layer7 on ' , to use with F* keys (F1-F24)
-
-    [24] =  ACTION_LAYER_TAP_KEY(4, KC_Z),                  // FN24 = momentary Layer4 on Z key, to use with unconvenient keys
-    [25] =  ACTION_LAYER_TAP_KEY(3, KC_X),                  // FN25 = momentary Layer3 on X key, to use with F* keys
-    [26] =  ACTION_LAYER_TAP_KEY(8, KC_C),                  // FN26 = momentary Layer8 on C key, to use with mouse and navigation keys
-    [27] =  ACTION_LAYER_TAP_KEY(9, KC_V),                  // FN27 = momentary Layer9 on V key, to use with application-specific shortcuts
+static const uint16_t PROGMEM fn_actions_3[] = {
+    [1]  =  ACTION_MODS_KEY(MOD_LSFT, KC_LBRC),             // FN1  = Shifted [ = {
+    [2]  =  ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),             // FN2  = Shifted ] = }
+    [3]  =  ACTION_MACRO(THIS_ARR),                         // FN3  = $this-> macro
+    [4]  =  ACTION_MODS_KEY(MOD_LSFT, KC_9),                // FN4  = Shifted 9 = (
+    [5]  =  ACTION_MODS_KEY(MOD_LSFT, KC_0),                // FN5  = Shifted 0 = )
+    [6]  =  ACTION_MODS_KEY(MOD_LSFT, KC_MINS),             // FN6  = Shifted - = _
+    [7]  =  ACTION_MACRO(ARR),                              // FN7  = -> macro
+    [8]  =  ACTION_MODS_KEY(MOD_LSFT, KC_2),                // FN8  = Shifted 2 = @
+    [9]  =  ACTION_MODS_KEY(MOD_LSFT, KC_4),                // FN9  = Shifted 4 = $
+    [10] =  ACTION_MACRO(FORMAT_METHOD),                    // FN10 = Reformat current method macro
+    [11] =  ACTION_MODS_KEY(MOD_LSFT, KC_F6),               // FN11 = Shifted F6
+    [12] =  ACTION_MODS_KEY(MOD_LALT, KC_F7),               // FN11 = Alt + F7
+    [13] =  ACTION_MODS_KEY(MOD_LSFT, KC_F11),              // FN11 = Shifted F11
+    [14] =  ACTION_MACRO(NOT_EQ),                           // FN14 = != macro
+    [15] =  ACTION_MODS_KEY(MOD_LSFT, KC_EQL),              // FN15 = Shifted = = +
+    [16] =  ACTION_MACRO(ARR2),                             // FN16 = => macro
+    [17] =  ACTION_MODS_KEY(MOD_LALT, KC_F4),               // FN17 = Alt + F4
+    [18] =  ACTION_MODS_KEY(MOD_LSFT, KC_SCLN)              // FN18 = :
 };
 
 static const uint16_t PROGMEM fn_actions_4[] = {
@@ -205,6 +317,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
         print("not supported.\n");
     }
 
+    /*
     if (id == L_CTRL_ALT_ENT || id == R_CTRL_ALT_ENT) {
         if (record->tap.count == 0 || record->tap.interrupted) {
             uint8_t weak_mods;
@@ -235,6 +348,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
         }
     }
+    */
 
 
 /*
@@ -276,18 +390,23 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 }
 
-/* #include "keymap_passwords.h"
+// #include "keymap_passwords.h"
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     if (record->event.pressed) {
         switch (id) {
-            case XMONAD_RESET:  return MACRO_XMONAD_RESET;
-            case PASSWORD1:     return MACRO_PASSWORD1;
+            case THIS_ARR:       return MACRO_THIS_ARR;
+            case ARR:            return MACRO_ARR;
+            case FORMAT_METHOD:  return MACRO_FORMAT_METHOD;
+            case NOT_EQ:         return MACRO_NOT_EQ;
+            case ARR2:           return MACRO_ARR2;
+            case PWD1:           return MACRO_PWD1;
         }
     }
     return MACRO_NONE;
-}*/
+}
 
 #define FN_ACTIONS_SIZE     (sizeof(fn_actions)   / sizeof(fn_actions[0]))
+#define FN_ACTIONS_3_SIZE   (sizeof(fn_actions_3) / sizeof(fn_actions_3[0]))
 #define FN_ACTIONS_4_SIZE   (sizeof(fn_actions_4) / sizeof(fn_actions_4[0]))
 #define FN_ACTIONS_7_SIZE   (sizeof(fn_actions_7) / sizeof(fn_actions_7[0]))
 #define FN_ACTIONS_9_SIZE   (sizeof(fn_actions_9) / sizeof(fn_actions_9[0]))
@@ -303,6 +422,11 @@ action_t keymap_fn_to_action(uint8_t keycode)
     action_t action;
     action.code = ACTION_NO;
 
+    if (layer == 3 && FN_INDEX(keycode) < FN_ACTIONS_3_SIZE) {
+        action.code = pgm_read_word(&fn_actions_3[FN_INDEX(keycode)]);
+    }
+
+    /*
     if (layer == 4 && FN_INDEX(keycode) < FN_ACTIONS_4_SIZE) {
         action.code = pgm_read_word(&fn_actions_4[FN_INDEX(keycode)]);
     }
@@ -314,6 +438,7 @@ action_t keymap_fn_to_action(uint8_t keycode)
     if (layer == 9 && FN_INDEX(keycode) < FN_ACTIONS_9_SIZE) {
         action.code = pgm_read_word(&fn_actions_9[FN_INDEX(keycode)]);
     }
+    */
 
     // by default, use fn_actions from default layer 0
     // this is needed to get mapping for same key, that was used switch to some layer,

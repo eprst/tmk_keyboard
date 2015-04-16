@@ -7,11 +7,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
      * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           |      |   Y  |   U  |   I  |   O  |   P  |   \    |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * | LShift |   A  |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1   '/3    |
-     * |--------+------+------+------+------+------| L2   |           | Caps |------+------+------+------+------+--------|
+     * | LShift |  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1   '/3    |
+     * |--------+------+------+------+------+------| Spc  |           | Caps |------+------+------+------+------+--------|
      * |Shft+Cps|   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| Esc  | LAlt | Space| LGui |                                       | Bksp | RGui | Del  | App  | RCtrl  |
+     *   | LCtrl| Esc  | LAlt | LGui | LSft |                                       | Bksp | RGui | Del  | Esc  | RCtrl  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |Home  | End  |       | Esc  | App  |
@@ -28,9 +28,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         GRV, 1,   2,   3,   4,   5,   MINS,
         TAB, Q,   W,   E,   R,   T,   FN1,
-        FN9, A,   FN31,FN30,FN29,G,
-        FN5, Z,   X,   C,   V,   B,   FN2,
-        LCTL,ESC, LALT,SPC, LGUI,                // todo: swap LGUI and ESC back
+        FN9, FN26,FN31,FN30,FN29,G,
+        FN5, Z,   X,   C,   V,   B,   SPC,
+        LCTL,ESC, LALT,LGUI,FN9,                 // todo: swap LGUI and ESC back
                                       HOME,END,
                                            PAUS,
                                  ENT, LCTL,INS,  // todo: LGUI -> ESC
@@ -39,7 +39,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              NO,  Y,   U,   I,   O,   P,   BSLS,
                   H,   J,   K,   L,   FN27,FN28,
              CAPS,N,   M,   COMM,DOT, SLSH,FN10,
-                       BSPC,RGUI,DEL, APP, RCTL,
+                       BSPC,RGUI,DEL, ESC, RCTL, // todo: APP?
         LEFT,RIGHT,                              // todo: remove LGUI
         UP,
         DOWN,RALT,SPC
@@ -98,7 +98,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |Alt ->|------+------+------+------+------+--------|
      * |        |      |      |      |      |      |------|           |------|$this>|  (   |   )  |  _   |  =   |        |
      * |--------+------+------+------+------+------|      |           |Ctrl  |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |FORMAT| !=   |  =>  |        |
+     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |      | !=   |  =>  | Format |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |      |      |      |      |      |                                       |   @  |      |      |Alt <-|Alt ->  |
      *   `----------------------------------'                                       `------------------------------------'
@@ -125,13 +125,57 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TRNS,FN11,FN12,TRNS,MINS,FN15,FN13,
              FN20,FN23,FN1 ,FN2 ,LBRC,RBRC,TRNS,
                   FN3, FN4, FN5, FN6, EQL, TRNS,
-             FN19,FN24,FN7, FN10,FN14,FN16,TRNS,
+             FN19,FN24,FN7, FN16,FN14,FN16,FN10,
                        FN8, TRNS,TRNS,FN19,FN20,
         VOLD,VOLU,
         MUTE,
         TRNS,TRNS,FN9
-    )
+    ),
 
+    /*
+     * Keymap:
+     *
+     * ,--------------------------------------------------.           ,--------------------------------------------------.
+     * |        |      |      |      |      |      |      |           |      |      |NUM LK|  /   |  *   |  -   |        |
+     * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |      |           |      |      |  7   |  8   |  9   |  +   |        |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |------|           |------|      |  4   |  5   |  6   |  +   |        |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * |        |      |      |      |      |      |      |           |      |      |  1   |  2   |  3   | ENT  |        |
+     * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+     *   |      |      |      |      |      |                                       |  0   | KP_DL|      | ENT  |        |
+     *   `----------------------------------'                                       `------------------------------------'
+     *                                        ,-------------.       ,-------------.
+     *                                        |      |      |       |      |      |
+     *                                 ,------|------|------|       |------+------+------.
+     *                                 |      |      |      |       |      |      |      |
+     *                                 |      |      |------|       |------|      |      |
+     *                                 |      |      |      |       |      |      |      |
+     *                                 `--------------------'       `--------------------'
+     *
+     */
+
+    KEYMAP(  // Layer4: num pad on the right
+        // left hand
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        TRNS,TRNS,TRNS,TRNS,TRNS,
+                                      TRNS,TRNS,
+                                           TRNS,
+                                 TRNS,TRNS,TRNS,
+        // right hand
+             TRNS,TRNS,NLCK,PSLS,PAST,PMNS,TRNS,
+             TRNS,TRNS, 7,   8,   9,  PPLS,TRNS,
+                  TRNS, 4,   5,   6,  PPLS,TRNS,
+             TRNS,TRNS, 1,   2,   3,  PENT,TRNS,
+                        0,  PDOT,TRNS,PENT,TRNS,
+        TRNS,TRNS,
+        TRNS,
+        TRNS,TRNS,TRNS
+    ),
 
     /*
      * Keymap:
@@ -234,7 +278,7 @@ enum macro_id {
 static const uint16_t PROGMEM fn_actions[] = {
     [0]  =   ACTION_FUNCTION(TEENSY_KEY),                    // FN0  - Teensy key
     [1]  =   ACTION_LAYER_TOGGLE(1),
-    [2]  =   ACTION_LAYER_TOGGLE(2),
+    [2]  =   ACTION_LAYER_TOGGLE(2), // not sure I need this one (locked mouse nav)
 
     [5] =    ACTION_MODS_KEY(MOD_LSFT, KC_CAPS),
     [6] =    ACTION_MACRO(PWD1),
@@ -245,6 +289,7 @@ static const uint16_t PROGMEM fn_actions[] = {
     [12] =  ACTION_MODS_KEY(MOD_LALT, KC_LEFT),             // FN12 = Alt + <-
     [13] =  ACTION_MODS_KEY(MOD_LALT, KC_RIGHT),            // FN12 = Alt + ->
 
+    [26] =   ACTION_LAYER_TAP_KEY(4, KC_A),
     [27] =   ACTION_LAYER_TAP_KEY(1, KC_SCLN),
     [28] =   ACTION_LAYER_TAP_KEY(3, KC_QUOT),
     [29] =   ACTION_LAYER_TAP_KEY(3, KC_F),

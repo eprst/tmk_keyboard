@@ -5,20 +5,20 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |   ~    |   1  |   2  |   3  |   4  |   5  |   -  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           |      |   Y  |   U  |   I  |   O  |   P  |   \    |
-     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * | LShift |  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1   '/3    |
+     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           | GRui |   Y  |   U  |   I  |   O  |   P  |   \    |
+     * |--------+------+------+------+------+------|      |           |Alt X |------+------+------+------+------+--------|
+     * | LShift |  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1 | '/3    |
      * |--------+------+------+------+------+------| Spc  |           | Caps |------+------+------+------+------+--------|
      * |Shft+Cps|   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| Esc  | LAlt | LGui | LSft |                                       | Bksp | RGui | Del  | Esc  | RCtrl  |
+     *   | LCtrl| Esc  | LAlt | LGui | LSft |                                       | Bksp | RGui | App  | Esc  | RCtrl  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |Home  | End  |       | Esc  | App  |
+     *                                        |Home  | End  |       | Left |Right |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |Pause |       | PgUp |      |      |
+     *                                 |      |      |Pause |       |  Up  |      |      |
      *                                 | Enter| LCtrl|------|       |------| RAlt | Space|
-     *                                 |      |      | Ins  |       | PgDn |      |      |
+     *                                 |      |      | Ins  |       | Down |      |      |
      *                                 `--------------------'       `--------------------'
      *
      * For left led changes: see matrix.c:121
@@ -36,10 +36,10 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  ENT, LCTL,INS,  // todo: LGUI -> ESC
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
-             NO,  Y,   U,   I,   O,   P,   BSLS,
+             FN14,Y,   U,   I,   O,   P,   BSLS,
                   H,   J,   K,   L,   FN27,FN28,
-             CAPS,N,   M,   COMM,DOT, SLSH,FN10,
-                       BSPC,RGUI,DEL, ESC, RCTL, // todo: APP?
+             CAPS,N,   M,   COMM,DOT, SLSH,RSFT,
+                       BSPC,RGUI,APP, ESC, RCTL, // todo: APP?
         LEFT,RIGHT,                              // todo: remove LGUI
         UP,
         DOWN,RALT,SPC
@@ -92,13 +92,13 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Keymap:
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |        |ALT+F1|      |      |ALT+F4|      |      |           |      | SH+F6|ALT+F7|      |  -   |  +   | SH+F11 |
+     * |        |ALT+F1|      |      |ALT+F4|      |      |           |Format| SH+F6|ALT+F7|      |  -   |  +   | SH+F11 |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
      * |        |      |      |      |      |      |      |           |Ctrl  |Ctrl ]|  {   |   }  |  [   |   ]  |        |
      * |--------+------+------+------+------+------|      |           |Alt ->|------+------+------+------+------+--------|
      * |        |      |      |      |      |      |------|           |------|$this>|  (   |   )  |  _   |  =   |        |
      * |--------+------+------+------+------+------|      |           |Ctrl  |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |      | !=   |  =>  | Format |
+     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |      | !=   |  =>  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |      |      |      |      |      |                                       |   @  |      |      |Alt <-|Alt ->  |
      *   `----------------------------------'                                       `------------------------------------'
@@ -122,10 +122,10 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            TRNS,
                                  FN22,FN18,TRNS,
         // right hand
-             TRNS,FN11,FN12,TRNS,MINS,FN15,FN13,
+             FN10,FN11,FN12,TRNS,MINS,FN15,FN13,
              FN20,FN23,FN1 ,FN2 ,LBRC,RBRC,TRNS,
                   FN3, FN4, FN5, FN6, EQL, TRNS,
-             FN19,FN24,FN7, FN16,FN14,FN16,FN10,
+             FN19,FN24,FN7, FN16,FN14,FN16,TRNS,
                        FN8, TRNS,TRNS,FN19,FN20,
         VOLD,VOLU,
         MUTE,
@@ -262,7 +262,8 @@ enum macro_id {
     FORMAT_METHOD,
     NOT_EQ,
     ARR2,
-    PWD1
+    PWD1,
+    COPY_HST
 };
 
 #include "pass.h"
@@ -271,6 +272,7 @@ enum macro_id {
 #define MACRO_FORMAT_METHOD MACRO( I(15), T(M), T(L), D(LALT), T(UP), U(LALT), W(100), D(LCTRL), D(LSHIFT), T(W), T(W), U(LSHIFT), D(LALT), T(L), U(LALT), U(LCTRL), W(100), T(GRAVE), T(L), W(100), END )
 #define MACRO_NOT_EQ        MACRO( I(15), D(LSHIFT), T(1), U(LSHIFT), T(EQL), END )
 #define MACRO_ARR2          MACRO( I(15), T(EQL), D(LSHIFT), T(DOT), U(LSHIFT), END )
+#define MACRO_COPY_HST      MACRO( I(15), D(RGUI), D(LALT), T(X), U(LALT), U(RGUI), END )
 
 /*
  * Fn action definition
@@ -284,10 +286,11 @@ static const uint16_t PROGMEM fn_actions[] = {
     [6] =    ACTION_MACRO(PWD1),
 
     [9]  =   ACTION_MODS_ONESHOT(MOD_LSFT),
-    [10] =   ACTION_MODS_ONESHOT(MOD_RSFT),
+    [10] =   ACTION_MODS_ONESHOT(MOD_RSFT),  // unused
 
     [12] =  ACTION_MODS_KEY(MOD_LALT, KC_LEFT),             // FN12 = Alt + <-
     [13] =  ACTION_MODS_KEY(MOD_LALT, KC_RIGHT),            // FN12 = Alt + ->
+    [14] =  ACTION_MACRO(COPY_HST),
 
     [26] =   ACTION_LAYER_TAP_KEY(4, KC_A),
     [27] =   ACTION_LAYER_TAP_KEY(1, KC_SCLN),
@@ -455,6 +458,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             case NOT_EQ:         return MACRO_NOT_EQ;
             case ARR2:           return MACRO_ARR2;
             case PWD1:           return MACRO_PWD1;
+            case COPY_HST:       return MACRO_COPY_HST;
         }
     }
     return MACRO_NONE;

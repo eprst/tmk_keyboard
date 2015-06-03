@@ -11,7 +11,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------| Spc  |           | Caps |------+------+------+------+------+--------|
      * |Shft+Cps|   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| Esc  | LAlt | LGui | LSft |                                       | Bksp | RGui | App  | Esc  | RCtrl  |
+     *   | LCtrl| Esc  | LAlt | Bksp | LSft |                                       | LGui | RGui | App  | Esc  | RCtrl  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |Home  | End  |       | Left |Right |
@@ -30,17 +30,17 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TAB, Q,   W,   E,   R,   T,   FN1,
         FN9, FN26,FN31,FN30,FN29,G,
         FN5, Z,   X,   C,   V,   B,   SPC,
-        LCTL,ESC, LALT,LGUI,FN9,                 // todo: swap LGUI and ESC back
+        LCTL,ESC, LALT,BSPC,FN9,
                                       HOME,END,
                                            PAUS,
-                                 ENT, LCTL,INS,  // todo: LGUI -> ESC
+                                 ENT, LCTL,INS,
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
              FN14,Y,   U,   I,   O,   P,   BSLS,
                   H,   J,   K,   L,   FN27,FN28,
              CAPS,N,   M,   COMM,DOT, SLSH,RSFT,
-                       BSPC,RGUI,APP, ESC, RCTL, // todo: APP?
-        LEFT,RIGHT,                              // todo: remove LGUI
+                       LGUI,RGUI,APP, ESC, RCTL, // todo: APP?; LGUI<->ESC
+        LEFT,RIGHT,
         UP,
         DOWN,RALT,SPC
     ),
@@ -81,7 +81,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            SYSREQ,MPLY,MPRV,MNXT,VOLD,VOLU,MUTE,
              TRNS,WH_L,WH_D,WH_U,WH_R,PGUP,ACL0,
                   MS_L,MS_D,MS_U,MS_R,PGDN,ACL1,
-             TRNS,HOME,END, DEL, INS, NO,  ACL2,
+             TRNS,TRNS,HOME,END, DEL, INS, ACL2,
                        BTN2,BTN3,TRNS,TRNS,TRNS,
         WBAK,WFWD,
         TRNS,
@@ -92,7 +92,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Keymap:
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |        |ALT+F1|      |      |ALT+F4|      |      |           |Format| SH+F6|ALT+F7|      |  -   |  +   | SH+F11 |
+     * |        |ALT+F1|      |      |ALT+F4|CTL+F5|      |           |Format| SH+F6|ALT+F7|      |  -   |  +   | SH+F11 |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
      * |        |      |      |      |      |      |      |           |Ctrl  |Ctrl ]|  {   |   }  |  [   |   ]  |        |
      * |--------+------+------+------+------+------|      |           |Alt ->|------+------+------+------+------+--------|
@@ -113,7 +113,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP(  // Layer 3: programming stuff on the right hand
         // left hand
-        TRNS,FN21,TRNS,TRNS,FN17,TRNS,TRNS,
+        TRNS,FN21,TRNS,TRNS,FN17,FN25,TRNS,
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
@@ -324,7 +324,8 @@ static const uint16_t PROGMEM fn_actions_3[] = {
     [21] =  ACTION_MODS_KEY(MOD_LALT, KC_F1),               // FN21 = Alt + F1
     [22] =  ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_ENTER), // FN22 = Ctrl + Shift + Enter
     [23] =  ACTION_MODS_KEY(MOD_LCTL, KC_RBRC),             // FN23 = Ctrl + [
-    [24] =  ACTION_MODS_KEY(MOD_LCTL | MOD_LALT, KC_V)      // FN24 = Ctrl + Alt + V
+    [24] =  ACTION_MODS_KEY(MOD_LCTL | MOD_LALT, KC_V),     // FN24 = Ctrl + Alt + V
+    [25] =  ACTION_MODS_KEY(MOD_LCTL, KC_F5)                // FN25 = Ctrl + F5
 };
 
 static const uint16_t PROGMEM fn_actions_4[] = {

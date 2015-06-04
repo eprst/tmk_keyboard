@@ -7,18 +7,18 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
      * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           | GRui |   Y  |   U  |   I  |   O  |   P  |   \    |
      * |--------+------+------+------+------+------|      |           |Alt X |------+------+------+------+------+--------|
-     * | LShift |  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1 | '/3    |
+     * |Shft+Cps|  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1 | '/3    |
      * |--------+------+------+------+------+------| Spc  |           | Caps |------+------+------+------+------+--------|
-     * |Shft+Cps|   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
+     * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| Esc  | LAlt | Bksp | LSft |                                       | LGui | RGui | App  | Esc  | RCtrl  |
+     *   | LCtrl| LAlt | App  | Esci | LSft |                                       | LGui | RGui | Esc  | RAlt | RCtrl  |  LGui<>Esc
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |Home  | End  |       | Left |Right |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |Pause |       |  Up  |      |      |
-     *                                 | Enter| LCtrl|------|       |------| RAlt | Space|
-     *                                 |      |      | Ins  |       | Down |      |      |
+     *                                 |      |      | Ins  |       |  Up  |      |      |
+     *                                 | Enter| Bspc |------|       |------| RAlt | Space|
+     *                                 |      |      | LCtl |       | Down |      |      |
      *                                 `--------------------'       `--------------------'
      *
      * For left led changes: see matrix.c:121
@@ -28,18 +28,18 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         GRV, 1,   2,   3,   4,   5,   MINS,
         TAB, Q,   W,   E,   R,   T,   FN1,
-        FN9, FN26,FN31,FN30,FN29,G,
-        FN5, Z,   X,   C,   V,   B,   SPC,
-        LCTL,ESC, LALT,BSPC,FN9,
+        FN5, FN26,FN31,FN30,FN29,G,
+        FN9, Z,   X,   C,   V,   B,   SPC,
+        LCTL,LALT,ESC, APP, FN9,
                                       HOME,END,
-                                           PAUS,
-                                 ENT, LCTL,INS,
+                                           INS,
+                                 ENT, BSPC,LCTL,
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
              FN14,Y,   U,   I,   O,   P,   BSLS,
                   H,   J,   K,   L,   FN27,FN28,
              CAPS,N,   M,   COMM,DOT, SLSH,RSFT,
-                       LGUI,RGUI,APP, ESC, RCTL, // todo: APP?; LGUI<->ESC
+                       LGUI,RGUI,ESC, RALT,RCTL, // todo: LGUI<->ESC
         LEFT,RIGHT,
         UP,
         DOWN,RALT,SPC

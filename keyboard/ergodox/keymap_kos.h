@@ -11,14 +11,14 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------| Spc  |           | Caps |------+------+------+------+------+--------|
      * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| LAlt | App  | Esci | LSft |                                       | LGui | RGui | Esc  | RAlt | RCtrl  |  LGui<>Esc
+     *   | LCtrl| LAlt | LGui | App  | LSft |                                       | Esc  | RGui | LGui | RAlt | RCtrl  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |Home  | End  |       | Left |Right |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      | Ins  |       |  Up  |      |      |
-     *                                 | Enter| Bspc |------|       |------| RAlt | Space|
-     *                                 |      |      | LCtl |       | Down |      |      |
+     *                                 | Enter| LCtl |------|       |------| RAlt | Space|
+     *                                 |      |      | Ins  |       | Down |      |      |
      *                                 `--------------------'       `--------------------'
      *
      * For left led changes: see matrix.c:121
@@ -30,16 +30,16 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TAB, Q,   W,   E,   R,   T,   FN1,
         FN5, FN26,FN31,FN30,FN29,G,
         FN9, Z,   X,   C,   V,   B,   SPC,
-        LCTL,LALT,ESC, APP, FN9,
+        LCTL,LALT,LGUI,APP, FN9,
                                       HOME,END,
                                            INS,
-                                 ENT, BSPC,LCTL,
+                                 ENT, LCTL,INS,
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
              FN14,Y,   U,   I,   O,   P,   BSLS,
                   H,   J,   K,   L,   FN27,FN28,
              CAPS,N,   M,   COMM,DOT, SLSH,RSFT,
-                       LGUI,RGUI,ESC, RALT,RCTL, // todo: LGUI<->ESC
+                       ESC, RGUI,LGUI,RALT,RCTL,
         LEFT,RIGHT,
         UP,
         DOWN,RALT,SPC
@@ -58,7 +58,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              TRNS,F6,  F7,  F8,  F9,  F10, F11,
              FN13,TRNS,LBRC,RBRC,TRNS,TRNS,F12,
-                  LEFT,DOWN,UP, RIGHT,FN27,TRNS,
+                  LEFT,DOWN,UP, RIGHT,TRNS,TRNS,
              FN12,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
                        DEL, TRNS,TRNS,TRNS,TRNS,
         TRNS, TRNS,
@@ -89,16 +89,16 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-     * Keymap:
+     * Keymap: Layer3: programming
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |        |ALT+F1|      |      |ALT+F4|CTL+F5|      |           |Format| SH+F6|ALT+F7|      |  -   |  +   | SH+F11 |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
      * |        |      |      |      |      |      |      |           |Ctrl  |Ctrl ]|  {   |   }  |  [   |   ]  |        |
      * |--------+------+------+------+------+------|      |           |Alt ->|------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |------|           |------|$this>|  (   |   )  |  _   |  =   |        |
+     * |        |      |      |      |      |      |------|           |------|$this>|  (   |   )  |  -   |  =   |        |
      * |--------+------+------+------+------+------|      |           |Ctrl  |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |      | !=   |  =>  |        |
+     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |  =>  |  _   |  !=  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |      |      |      |      |      |                                       |   @  |      |      |Alt <-|Alt ->  |
      *   `----------------------------------'                                       `------------------------------------'
@@ -124,8 +124,8 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              FN10,FN11,FN12,TRNS,MINS,FN15,FN13,
              FN20,FN23,FN1 ,FN2 ,LBRC,RBRC,TRNS,
-                  FN3, FN4, FN5, FN6, EQL, TRNS,
-             FN19,FN24,FN7, FN16,FN14,FN16,TRNS,
+                  FN3, FN4, FN5, MINS,EQL, TRNS,
+             FN19,FN24,FN7, FN16,FN6, FN14,TRNS,
                        FN8, TRNS,TRNS,FN19,FN20,
         VOLD,VOLU,
         MUTE,
@@ -150,7 +150,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      |      |       |      |      |      |
-     *                                 |      |      |------|       |------|      |      |
+     *                                 |      |      |------|       |------|      | Bspc |
      *                                 |      |      |      |       |      |      |      |
      *                                 `--------------------'       `--------------------'
      *
@@ -174,7 +174,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         0,  PDOT,TRNS,PENT,TRNS,
         TRNS,TRNS,
         TRNS,
-        TRNS,TRNS,TRNS
+        TRNS,TRNS,BSPC
     ),
 
     /*

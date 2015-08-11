@@ -106,7 +106,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        |      |      |       |VolDn |VolUp |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |Ctrl  |      |      |       |Mute  |      |      |
-     *                                 |Shift |  :   |------|       |------|      |  $   |
+     *                                 |Shift |  :   |------|       |------| <<<  |  $   |
      *                                 |Enter |      |      |       |      |      |      |
      *                                 `--------------------'       `--------------------'
      *
@@ -129,7 +129,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        FN8, TRNS,TRNS,FN19,FN20,
         VOLD,VOLU,
         MUTE,
-        TRNS,TRNS,FN9
+        TRNS,FN0,FN9
     ),
 
     /*
@@ -301,6 +301,7 @@ static const uint16_t PROGMEM fn_actions[] = {
 };
 
 static const uint16_t PROGMEM fn_actions_3[] = {
+    [0]  =  ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_BSPC),  // FN0  = Ctl Shift Backspace (last edit position in idea)
     [1]  =  ACTION_MODS_KEY(MOD_LSFT, KC_LBRC),             // FN1  = Shifted [ = {
     [2]  =  ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),             // FN2  = Shifted ] = }
     [3]  =  ACTION_MACRO(THIS_ARR),                         // FN3  = $this-> macro

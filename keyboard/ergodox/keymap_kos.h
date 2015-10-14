@@ -5,8 +5,8 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |   ~    |   1  |   2  |   3  |   4  |   5  |   -  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           | GRui |   Y  |   U  |   I  |   O  |   P  |   \    |
-     * |--------+------+------+------+------+------|      |           |Alt X |------+------+------+------+------+--------|
+     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           | Bspc |   Y  |   U  |   I  |   O  |   P  |   \    |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |Shft+Cps|  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1 | '/3    |
      * |--------+------+------+------+------+------| Spc  |           | Caps |------+------+------+------+------+--------|
      * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
@@ -36,7 +36,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  ENT, LCTL,INS,
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
-             FN14,Y,   U,   I,   O,   P,   BSLS,
+             BSPC,Y,   U,   I,   O,   P,   BSLS,
                   H,   J,   K,   L,   FN27,FN28,
              CAPS,N,   M,   COMM,DOT, SLSH,RSFT,
                        ESC, RGUI,LGUI,RALT,RCTL,
@@ -149,9 +149,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |      |       |      |      |      |
-     *                                 |      |      |------|       |------|      | Bspc |
-     *                                 |      |      |      |       |      |      |      |
+     *                                 |      |      |      |       |      |RGUI  |      |
+     *                                 |      |      |------|       |------|Alt   | Bspc |
+     *                                 |      |      |      |       |      |X     |      |
      *                                 `--------------------'       `--------------------'
      *
      */
@@ -174,7 +174,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         0,  PDOT,TRNS,PENT,TRNS,
         TRNS,TRNS,
         TRNS,
-        TRNS,TRNS,BSPC
+        TRNS,FN14,BSPC
     ),
 
     /*

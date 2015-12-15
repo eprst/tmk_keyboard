@@ -5,20 +5,20 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |   ~    |   1  |   2  |   3  |   4  |   5  |   -  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           | Bspc |   Y  |   U  |   I  |   O  |   P  |   \    |
-     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           | RgAlt|   Y  |   U  |   I  |   O  |   P  |   \    |
+     * |--------+------+------+------+------+------|      |           |  X   |------+------+------+------+------+--------|
      * |Shft+Cps|  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1 | '/3    |
      * |--------+------+------+------+------+------| Spc  |           | Caps |------+------+------+------+------+--------|
      * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| LAlt | LGui | App  | LSft |                                       | Esc  | RGui | LGui | RAlt | RCtrl  |
+     *   | LCtrl| LAlt | LGui | App  | LSft |                                       | Bspc | RGui | LGui | RAlt | RCtrl  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |Home  | End  |       | Left |Right |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      | Ins  |       |  Up  |      |      |
-     *                                 | Enter| LCtl |------|       |------| RAlt | Space|
-     *                                 |      |      | Ins  |       | Down |      |      |
+     *                                 | Enter| LCtl |------|       |------| RAlt/| Space|
+     *                                 |      |      | Ins  |       | Down | Esc  |      |
      *                                 `--------------------'       `--------------------'
      *
      * For left led changes: see matrix.c:121
@@ -36,13 +36,13 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  ENT, LCTL,INS,
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
-             BSPC,Y,   U,   I,   O,   P,   BSLS,
+             FN14,Y,   U,   I,   O,   P,   BSLS,
                   H,   J,   K,   L,   FN27,FN28,
              CAPS,N,   M,   COMM,DOT, SLSH,RSFT,
-                       ESC, RGUI,LGUI,RALT,RCTL,
+                       BSPC,RGUI,LGUI,RALT,RCTL,
         LEFT,RIGHT,
         UP,
-        DOWN,RALT,SPC
+        DOWN,FN10,SPC
     ),
 
     KEYMAP(  // Layer1: F-keys instead of numbers, leftled:red
@@ -106,7 +106,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        |      |      |       |VolDn |VolUp |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |Ctrl  |      |      |       |Mute  |      |      |
-     *                                 |Shift |  :   |------|       |------| <<<  |  $   |
+     *                                 |Shift |      |------|       |------| <<<  |  $   |
      *                                 |Enter |      |      |       |      |      |      |
      *                                 `--------------------'       `--------------------'
      *
@@ -120,7 +120,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TRNS,TRNS,TRNS,TRNS,TRNS,
                                       TRNS,TRNS,
                                            TRNS,
-                                 FN22,FN18,TRNS,
+                                 FN22,TRNS,TRNS,
         // right hand
              FN10,FN11,FN12,TRNS,MINS,FN15,FN13,
              FN20,FN23,FN1 ,FN2 ,LBRC,RBRC,TRNS,
@@ -149,9 +149,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |      |       |      |RGUI  |      |
-     *                                 |      |      |------|       |------|Alt   | Bspc |
-     *                                 |      |      |      |       |      |X     |      |
+     *                                 |      |      |      |       |      |      | RGui |
+     *                                 |      |      |------|       |------| Del  | Alt  |
+     *                                 |      |      |      |       |      |      |  X   |
      *                                 `--------------------'       `--------------------'
      *
      */
@@ -174,7 +174,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         0,  PDOT,TRNS,PENT,TRNS,
         TRNS,TRNS,
         TRNS,
-        TRNS,FN14,BSPC
+        TRNS,DEL,FN14
     ),
 
     /*
@@ -286,7 +286,7 @@ static const uint16_t PROGMEM fn_actions[] = {
     [6] =    ACTION_MACRO(PWD1),
 
     [9]  =   ACTION_MODS_ONESHOT(MOD_LSFT),
-    [10] =   ACTION_MODS_ONESHOT(MOD_RSFT),  // unused
+    [10] =   ACTION_MODS_TAP_KEY(MOD_RALT,KC_ESC),
 
     [12] =  ACTION_MODS_KEY(MOD_LALT, KC_LEFT),             // FN12 = Alt + <-
     [13] =  ACTION_MODS_KEY(MOD_LALT, KC_RIGHT),            // FN12 = Alt + ->
@@ -319,7 +319,7 @@ static const uint16_t PROGMEM fn_actions_3[] = {
     [15] =  ACTION_MODS_KEY(MOD_LSFT, KC_EQL),              // FN15 = Shifted = = +
     [16] =  ACTION_MACRO(ARR2),                             // FN16 = => macro
     [17] =  ACTION_MODS_KEY(MOD_LALT, KC_F4),               // FN17 = Alt + F4
-    [18] =  ACTION_MODS_KEY(MOD_LSFT, KC_SCLN),             // FN18 = :
+    [18] =  ACTION_MODS_KEY(MOD_LSFT, KC_SCLN),             // FN18 = : // UNUSED!
     [19] =  ACTION_MODS_KEY(MOD_LALT | MOD_LCTL, KC_LEFT),  // FN19 = Ctrl + Alt + <-
     [20] =  ACTION_MODS_KEY(MOD_LALT | MOD_LCTL, KC_RIGHT), // FN20 = Ctrl + Alt + ->
     [21] =  ACTION_MODS_KEY(MOD_LALT, KC_F1),               // FN21 = Alt + F1

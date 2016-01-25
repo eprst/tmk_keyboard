@@ -166,7 +166,7 @@ uint8_t matrix_scan(void)
     mcp23018_status = ergodox_left_leds_update();
 #endif
 
-#ifdef KEYMAP_KOS
+#if defined(KEYMAP_KOS) || defined(KEYMAP_KOS_OSX)
     uint8_t layer = biton32(layer_state);
 
     ergodox_board_led_off();

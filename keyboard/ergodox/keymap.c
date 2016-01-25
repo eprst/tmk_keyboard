@@ -87,6 +87,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_cub.h"
 #elif defined(KEYMAP_KOS)
 #include "keymap_kos.h"
+#elif defined(KEYMAP_KOS_OSX)
+#include "keymap_kos_osx.h"
 #else
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -220,7 +222,7 @@ uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
     }
 }
 
-#if defined(KEYMAP_CUB)||defined(KEYMAP_KOS)
+#if defined(KEYMAP_CUB)||defined(KEYMAP_KOS)||defined(KEYMAP_KOS_OSX)
 
 // function keymap_fn_to_action will be defined in keymap_cub.h
 

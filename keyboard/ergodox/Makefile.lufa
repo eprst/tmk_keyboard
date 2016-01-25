@@ -140,6 +140,9 @@ cub: all
 kos: OPT_DEFS += -DKEYMAP_KOS
 kos: all
 
+kos_osx: OPT_DEFS += -DKEYMAP_KOS_OSX
+kos_osx: all
+
 teensy2: $(TARGET).hex
 	./teensy-loader-cli -mmcu=$(MCU) -w -v $(TARGET).hex
 

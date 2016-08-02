@@ -3,22 +3,22 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Keymap: Default Layer in QWERTY
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |   ~    |   1  |   2  |   3  |   4  |   5  |   -  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
+     * |   ~    |   1  |   2  |   3  |   4  |   5  | Spc  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   E  |   R  |   T  | L1   |           | App  |   Y  |   U  |   I  |   O  |   P  |   \    |
+     * | Tab    |   Q  |   W  |   E  |   R  |   T  |  (   |           |  -   |   Y  |   U  |   I  |   O  |   P  |   \    |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * | Caps   |  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1 | '/3    |
-     * |--------+------+------+------+------+------| Spc  |           | Layt |------+------+------+------+------+--------|
+     * |--------+------+------+------+------+------|  )   |           | Layt |------+------+------+------+------+--------|
      * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           | Swtch|   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl| LAlt | LGui | Rgui | LSft |                                       | Bspc | RGui | LGui | RAlt | RCtrl  |
+     *   | LCtrl| LAlt | Home | Rgui | LSft |                                       | Bspc | RGui | End  | RAlt | RCtrl  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |Home  | End  |       | Left |Right |
+     *                                        |  [   |  ]   |       | Left |Right |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      | Ins  |       |  Up  |      |      |
      *                                 | Enter| LCtl |------|       |------| RAlt/| Space|
-     *                                 |      |      | Ins  |       | Down | Esc  |      |
+     *                                 |      |      | App  |       | Down | Esc  |      |
      *                                 `--------------------'       `--------------------'
      *
      * For left led changes: see matrix.c:121
@@ -26,20 +26,20 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KEYMAP(  // Layer0: default, leftled:none
         // left hand
-        GRV, 1,   2,   3,   4,   5,   MINS,
-        TAB, Q,   W,   E,   R,   T,   FN1,
+        GRV, 1,   2,   3,   4,   5,   SPC,
+        TAB, Q,   W,   E,   R,   T,   FN14,
         CAPS, FN26,FN31,FN30,FN29,G,
-        FN9, Z,   X,   C,   V,   B,   SPC,
-        LCTL,LALT,LGUI,RGUI,FN9,
-                                      HOME,END,
+        FN9, Z,   X,   C,   V,   B,   FN15,
+        LCTL,LALT,HOME,RGUI,FN9,
+                                      LBRC,RBRC,
                                            INS,
-                                 ENT, LCTL,INS,
+                                 ENT, LCTL,APP,
         // right hand
              PSCR,6,   7,   8,   9,   0,   EQL,
-             APP ,Y,   U,   I,   O,   P,   BSLS,
+             MINS,Y,   U,   I,   O,   P,   BSLS, // APP
                   H,   J,   K,   L,   FN27,FN28,
              FN5 ,N,   M,   COMM,DOT, SLSH,RSFT,
-                       BSPC,RGUI,LGUI,RALT,RCTL,
+                       BSPC,RGUI,END ,RALT,RCTL,
         LEFT,RIGHT,
         UP,
         DOWN,FN10,SPC
@@ -129,7 +129,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        FN8, TRNS,TRNS,FN19,FN20,
         VOLD,VOLU,
         MUTE,
-        TRNS,FN0,FN9
+        MPLY,FN0,FN9
     ),
 
     /*
@@ -288,6 +288,8 @@ static const uint16_t PROGMEM fn_actions[] = {
     [12] =  ACTION_MODS_KEY(MOD_LALT, KC_LEFT),             // FN12 = Alt + <-
     [13] =  ACTION_MODS_KEY(MOD_LALT, KC_RIGHT),            // FN12 = Alt + ->
     // [14] =  ACTION_MACRO(COPY_HST),
+    [14]  =  ACTION_MODS_KEY(MOD_LSFT, KC_9),                // FN14  = Shifted 9 = (
+    [15]  =  ACTION_MODS_KEY(MOD_LSFT, KC_0),                // FN15  = Shifted 0 = )
 
     [26] =   ACTION_LAYER_TAP_KEY(4, KC_A),
     [27] =   ACTION_LAYER_TAP_KEY(1, KC_SCLN),

@@ -105,9 +105,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |VolDn |VolUp |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |Ctrl  |      |      |       |Mute  |      |      |
-     *                                 |Shift |      |------|       |------| <<<  |  $   |
-     *                                 |Enter |      |      |       |      |      |      |
+     *                                 |Ctrl  |      |      |       |Mute  |      |Ctrl  |
+     *                                 |Shift |      |------|       |------| <<<  |Shift |
+     *                                 |Enter |      |      |       |      |      |Space |
      *                                 `--------------------'       `--------------------'
      *
      */
@@ -309,7 +309,8 @@ static const uint16_t PROGMEM fn_actions_3[] = {
     [6]  =  ACTION_MODS_KEY(MOD_LSFT, KC_MINS),             // FN6  = Shifted - = _
     [7]  =  ACTION_MACRO(ARR),                              // FN7  = -> macro
     [8]  =  ACTION_MODS_KEY(MOD_LSFT, KC_2),                // FN8  = Shifted 2 = @
-    [9]  =  ACTION_MODS_KEY(MOD_LSFT, KC_4),                // FN9  = Shifted 4 = $
+    [9]  =  ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_SPC),   // FN9  = Ctrl + Shift + Space
+    // [9]  =  ACTION_MODS_KEY(MOD_LSFT, KC_4),                // FN9  = Shifted 4 = $
     // [10] =  ACTION_MACRO(FORMAT_METHOD),                    // FN10 = Reformat current method macro
     [11] =  ACTION_MODS_KEY(MOD_LSFT, KC_F6),               // FN11 = Shifted F6
     [12] =  ACTION_MODS_KEY(MOD_LALT, KC_F7),               // FN11 = Alt + F7

@@ -1,24 +1,26 @@
+#include "led.h"
+
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * Keymap: Default Layer in QWERTY
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |   ~    |   1  |   2  |   3  |   4  |   5  | Spc  |           |PrtSc |   6  |   7  |   8  |   9  |   0  |   =    |
+     * |   ~    |   !  |   @  |   #  |   $  |   %  | Spc  |           |PrtSc |   ^  |   &  |   *  |   (  |   )  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   E  |   R  |   T  |  (   |           |  -   |   Y  |   U  |   I  |   O  |   P  |   \    |
+     * | Tab    |   Q  |   W  |   E  |   R  |   T  |  [   |           |  -   |   Y  |   U  |   I  |   O  |   P  |   \    |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * | Caps   |  A/4 |  S/2 |  D/1 |  F/3 |   G  |------|           |------|   H  |   J  |   K  | L/3  |  ;/1 | '/3    |
-     * |--------+------+------+------+------+------|  )   |           | Layt |------+------+------+------+------+--------|
+     * |--------+------+------+------+------+------|  ]   |           | Layt |------+------+------+------+------+--------|
      * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           | Swtch|   N  |   M  |   ,  |   .  |   /  | RShift |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   | LCtrl| LAlt | Home | Rgui | LSft |                                       | Bspc | RGui | End  | RAlt | RCtrl  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |  [   |  ]   |       | Left |Right |
+     *                                        |  {   |  }   |       | Left |Right |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      | Ins  |       |  Up  |      |      |
      *                                 | Enter| LCtl |------|       |------| RAlt/| Space|
-     *                                 |      |      | App  |       | Down | Esc  |      |
+     *                                 |      |      |RguiUp|       | Down | Esc  |      |
      *                                 `--------------------'       `--------------------'
      *
      * For left led changes: see matrix.c:121
@@ -26,16 +28,18 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KEYMAP(  // Layer0: default, leftled:none
         // left hand
-        GRV, 1,   2,   3,   4,   5,   SPC,
-        TAB, Q,   W,   E,   R,   T,   FN14,
-        CAPS, FN26,FN31,FN30,FN29,G,
-        FN9, Z,   X,   C,   V,   B,   FN15,
-        LCTL,LALT,HOME,RGUI,FN9,
-                                      LBRC,RBRC,
+        //GRV, 1,   2,   3,   4,   5,   SPC,
+        GRV, FN16,FN17,FN18,FN19,FN20,SPC,
+        TAB, Q,   W,   E,   R,   T,   FN24,
+        CAPS,FN26,FN31,FN30,FN29,G,
+        LSFT,Z,   X,   C,   V,   B,   FN25,
+        FN9, LALT,HOME,RGUI,FN9,
+                                     LBRC,RBRC,
                                            INS,
-                                 ENT, LCTL,APP,
+                                 ENT, LCTL,FN4,  // APP,
         // right hand
-             PSCR,6,   7,   8,   9,   0,   EQL,
+        //   PSCR,6,   7,   8,   9,   0,   EQL,
+             PSCR,FN21,FN22,FN23,FN24,FN25,EQL,
              MINS,Y,   U,   I,   O,   P,   BSLS, // APP
                   H,   J,   K,   L,   FN27,FN28,
              FN5 ,N,   M,   COMM,DOT, SLSH,RSFT,
@@ -98,16 +102,16 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |Alt ->|------+------+------+------+------+--------|
      * |        |      |      |      |      |      |------|           |------|      |  (   |   )  |  -   |  =   |        |
      * |--------+------+------+------+------+------|      |           |Ctrl  |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |  =>  |  _   |  !=  |        |
+     * |        |      |      |      |      |      |      |           |Alt <-|CtAltV|  ->  |  =>  |  _   |  !=  | Mute   |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   |      |      |      |      |      |                                       |   @  |      |      |Alt <-|Alt ->  |
+     *   |      |      |      |      |      |                                       |   @  |      |      |VolDn | VolUp  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |      |      |       |VolDn |VolUp |
+     *                                        |      |      |       |Alt <-|Alt ->|
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |Ctrl  |      |      |       |Mute  |      |Ctrl  |
-     *                                 |Shift |      |------|       |------| <<<  |Shift |
-     *                                 |Enter |      |      |       |      |      |Space |
+     *                                 |Ctrl  |      |      |       |Mute  |Ctrl  |Ctrl  |
+     *                                 |Shift |      |------|       |------|Shift |Shift |
+     *                                 |Enter |      |      |       |      |Bspc  |Space |
      *                                 `--------------------'       `--------------------'
      *
      */
@@ -125,9 +129,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TRNS,FN11,FN12,TRNS,MINS,FN15,FN13,
              FN20,FN23,FN1 ,FN2 ,LBRC,RBRC,TRNS,
                   TRNS,FN4, FN5, MINS,EQL, TRNS,
-             FN19,FN24,FN7, FN16,FN6, FN14,TRNS,
-                       FN8, TRNS,TRNS,FN19,FN20,
-        VOLD,VOLU,
+             FN19,FN24,FN7, FN16,FN6, FN14,MUTE,
+                       FN8, TRNS,TRNS,VOLD,VOLU,
+        FN19,FN20,
         MUTE,
         MPLY,FN0,FN9
     ),
@@ -278,6 +282,7 @@ static const uint16_t PROGMEM fn_actions[] = {
     [1]  =   ACTION_LAYER_TOGGLE(1),
     [2]  =   ACTION_LAYER_TOGGLE(2), // not sure I need this one (locked mouse nav)
 
+    [4] =    ACTION_MODS_KEY(MOD_RGUI, KC_UP),               // Cmd+Up = expose in OsX
     [5] =    ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_SPC),   // Layout switch on OSX
     [6] =    ACTION_MACRO(PWD1),
     [7] =    ACTION_MACRO(PWD2),
@@ -288,8 +293,21 @@ static const uint16_t PROGMEM fn_actions[] = {
     [12] =  ACTION_MODS_KEY(MOD_LALT, KC_LEFT),             // FN12 = Alt + <-
     [13] =  ACTION_MODS_KEY(MOD_LALT, KC_RIGHT),            // FN12 = Alt + ->
     // [14] =  ACTION_MACRO(COPY_HST),
-    [14]  =  ACTION_MODS_KEY(MOD_LSFT, KC_9),                // FN14  = Shifted 9 = (
-    [15]  =  ACTION_MODS_KEY(MOD_LSFT, KC_0),                // FN15  = Shifted 0 = )
+
+    [14]  =  ACTION_MODS_KEY(MOD_LSFT, KC_LBRC),            // FN1  = Shifted [ = {
+    [15]  =  ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),            // FN2  = Shifted ] = }
+
+    // shifted numbers for the top row
+    [16]  =  ACTION_FUNCTION(KC_1),
+    [17]  =  ACTION_FUNCTION(KC_2),
+    [18]  =  ACTION_FUNCTION(KC_3),
+    [19]  =  ACTION_FUNCTION(KC_4),
+    [20]  =  ACTION_FUNCTION(KC_5),
+    [21]  =  ACTION_FUNCTION(KC_6),
+    [22]  =  ACTION_FUNCTION(KC_7),
+    [23]  =  ACTION_FUNCTION(KC_8),
+    [24]  =  ACTION_FUNCTION(KC_9),
+    [25]  =  ACTION_FUNCTION(KC_0),
 
     [26] =   ACTION_LAYER_TAP_KEY(4, KC_A),
     [27] =   ACTION_LAYER_TAP_KEY(1, KC_SCLN),
@@ -363,9 +381,11 @@ static const uint16_t PROGMEM fn_actions_9[] = {
     [15] =  ACTION_MODS_KEY(MOD_LCTL,          KC_PPLS),    // FN15 = Ctrl+Pad Plus
 };
 
+bool removed_lsft;
+bool removed_rsft;
+
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-    // print("action_function called\n");
     // print("id  = "); phex(id); print("\n");
     // print("opt = "); phex(opt); print("\n");
 
@@ -448,7 +468,76 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     }
 */
 
+    keyevent_t event = record->event;
+    uint8_t layer = biton32(layer_state);
+
+    uint8_t mods = get_mods();
+    uint8_t weak_mods = get_weak_mods();
+
+    // todo support caps too, somehow. see register_code?
+
+    bool shifted = (mods & MOD_BIT(KC_LSHIFT) ) || (mods & MOD_BIT(KC_RSHIFT));
+    bool weak_shifted = (weak_mods & MOD_BIT(KC_LSHIFT) ) || (weak_mods & MOD_BIT(KC_RSHIFT));
+    bool caps = (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK));
+
+    if (event.pressed) {
+      //print("pressed\n");
+
+      if (layer != 0 || weak_shifted || caps) {
+        //print("non0 or weak\n");
+        register_code(id);
+      } else {
+        if (shifted) {
+          //print("shifted\n");
+          if (mods & MOD_BIT(KC_LSHIFT)) {
+            //print("removing left shift\n");
+            unregister_mods(MOD_BIT(KC_LSHIFT));
+            register_code(id);
+            removed_lsft = true;
+            removed_rsft = false;
+          } else { // right shift
+            //print("removing right shift\n");
+            unregister_mods(MOD_BIT(KC_RSHIFT));
+            register_code(id);
+            removed_lsft = false;
+            removed_rsft = true;
+          }
+        } else {
+          //print("adding left shift\n");
+          register_mods(MOD_BIT(KC_LSHIFT));
+          register_code(id);
+        }
+      }
+
+    } else {
+      //print("released\n");
+
+      if (layer != 0 || weak_shifted || caps) {
+        //print("non0 or weak\n");
+        unregister_code(id);
+      } else {
+        if (removed_lsft || removed_rsft) {
+          if (removed_lsft) {
+            //print("restoring left shifted\n");
+            unregister_code(id);
+            register_mods(MOD_BIT(KC_LSHIFT));
+            removed_lsft = false;
+          } else { // right shift
+            //print("restoring right shifted\n");
+            unregister_code(id);
+            register_mods(MOD_BIT(KC_RSHIFT));
+            removed_rsft = false;
+          }
+        } else {
+          //print("was not shifted originally, removing left shift\n");
+          unregister_code(id);
+          unregister_mods(MOD_BIT(KC_LSHIFT));
+        }
+      }
+    }
+
 }
+
 
 // #include "keymap_passwords.h"
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

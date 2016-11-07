@@ -30,15 +30,15 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         //GRV, 1,   2,   3,   4,   5,   SPC,
         GRV, FN16,FN17,FN18,FN19,FN20,SPC,
-        TAB, Q,   W,   E,   R,   T,   FN24,
+        TAB, Q,   W,   E,   R,   T,   LBRC,
         CAPS,FN26,FN31,FN30,FN29,G,
-        LSFT,Z,   X,   C,   V,   B,   FN25,
-        FN9, LALT,HOME,RGUI,FN9,
-                                     LBRC,RBRC,
+        LSFT,Z,   X,   C,   V,   B,   RBRC,
+        LCTL, LALT,HOME,RGUI,FN9,
+                                      FN14,FN15,
                                            INS,
                                  ENT, LCTL,FN4,  // APP,
         // right hand
-        //   PSCR,6,   7,   8,   9,   0,   EQL,
+        //     PSCR,6,   7,   8,   9,   0,   EQL,
              PSCR,FN21,FN22,FN23,FN24,FN25,EQL,
              MINS,Y,   U,   I,   O,   P,   BSLS, // APP
                   H,   J,   K,   L,   FN27,FN28,
@@ -383,6 +383,7 @@ static const uint16_t PROGMEM fn_actions_9[] = {
 
 bool removed_lsft;
 bool removed_rsft;
+int added_lsft;
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -468,6 +469,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     }
 */
 
+
     keyevent_t event = record->event;
     uint8_t layer = biton32(layer_state);
 
@@ -483,7 +485,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (event.pressed) {
       //print("pressed\n");
 
-      if (layer != 0 || weak_shifted || caps) {
+      if (layer != 0 || weak_shifted || caps || added_lsft) {
         //print("non0 or weak\n");
         register_code(id);
       } else {
@@ -504,7 +506,8 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
           }
         } else {
           //print("adding left shift\n");
-          register_mods(MOD_BIT(KC_LSHIFT));
+          if (++added_lsft == 1)
+            register_mods(MOD_BIT(KC_LSHIFT));
           register_code(id);
         }
       }
@@ -530,11 +533,15 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
           }
         } else {
           //print("was not shifted originally, removing left shift\n");
-          unregister_code(id);
-          unregister_mods(MOD_BIT(KC_LSHIFT));
+          if (--added_lsft <= 0) {
+            added_lsft = 0;
+            unregister_code(id);
+            unregister_mods(MOD_BIT(KC_LSHIFT));
+          }
         }
       }
     }
+
 
 }
 

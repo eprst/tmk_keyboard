@@ -37,6 +37,10 @@ Most used files are located at
 #include "ergodox.h"
 #include "i2cmaster.h"
 
+extern inline void ergodox_led_all_on(void);
+extern inline void ergodox_led_all_off(void);
+extern inline void ergodox_led_all_set(uint8_t n);
+
 bool i2c_initialized = 0;
 uint8_t mcp23018_status = 0x20;
 

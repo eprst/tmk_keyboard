@@ -49,6 +49,7 @@ void clear_weak_mods(void);
 
 /* oneshot modifier */
 void set_oneshot_mods(uint8_t mods);
+uint8_t get_oneshot_mods();
 void clear_oneshot_mods(void);
 void oneshot_toggle(void);
 void oneshot_enable(void);

@@ -107,11 +107,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *   |      |      |      |      |      |                                       |   @  |      |      |VolDn | VolUp  |
      *   `----------------------------------'                                       `------------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |      |      |       |Alt <-|Alt ->|
+     *                                        |      |      |       |C A <-|C A ->|
      *                                 ,------|------|------|       |------+------+------.
      *                                 |Ctrl  |      |      |       |Mute  |Ctrl  |Ctrl  |
      *                                 |Shift |      |------|       |------|Shift |Shift |
-     *                                 |Enter |      |      |       |      |Bspc  |Space |
+     *                                 |Enter |      |      |       |Play  |Bspc  |Space |
      *                                 `--------------------'       `--------------------'
      *
      */
@@ -475,11 +475,13 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
     uint8_t mods = get_mods();
     uint8_t weak_mods = get_weak_mods();
+    uint8_t oneshot_mods = get_oneshot_mods();
 
     // todo support caps too, somehow. see register_code?
 
     bool shifted = (mods & MOD_BIT(KC_LSHIFT) ) || (mods & MOD_BIT(KC_RSHIFT));
     bool weak_shifted = (weak_mods & MOD_BIT(KC_LSHIFT) ) || (weak_mods & MOD_BIT(KC_RSHIFT));
+    bool oneshot_shifted = false; // (oneshot_mods & MOD_BIT(KC_LSHIFT) ) || (weak_mods & MOD_BIT(KC_RSHIFT));
     bool caps = (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK));
 
     if (event.pressed) {
@@ -489,9 +491,9 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
         //print("non0 or weak\n");
         register_code(id);
       } else {
-        if (shifted) {
+        if (shifted || oneshot_shifted) {
           //print("shifted\n");
-          if (mods & MOD_BIT(KC_LSHIFT)) {
+          if ((mods & MOD_BIT(KC_LSHIFT)) || (oneshot_mods & MOD_BIT(KC_LSHIFT))) {
             //print("removing left shift\n");
             unregister_mods(MOD_BIT(KC_LSHIFT));
             register_code(id);

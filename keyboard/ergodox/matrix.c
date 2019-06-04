@@ -36,6 +36,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5
 #endif
+
+extern inline void ergodox_board_led_on(void);
+extern inline void ergodox_right_led_1_on(void);
+extern inline void ergodox_right_led_2_on(void);
+extern inline void ergodox_right_led_3_on(void);
+extern inline void ergodox_left_led_1_on(void);
+extern inline void ergodox_left_led_2_on(void);
+extern inline void ergodox_left_led_3_on(void);
+
+extern inline void ergodox_board_led_off(void);
+extern inline void ergodox_right_led_1_off(void);
+extern inline void ergodox_right_led_2_off(void);
+extern inline void ergodox_right_led_3_off(void);
+extern inline void ergodox_left_led_1_off(void);
+extern inline void ergodox_left_led_2_off(void);
+extern inline void ergodox_left_led_3_off(void);
+
 static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */

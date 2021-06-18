@@ -11,3 +11,4 @@ tags
 *~
 build/
 *.bak
+keyboard/ergodox/pass.h
